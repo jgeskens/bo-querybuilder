@@ -172,10 +172,15 @@ class QueryBuilder(object):
                   if 'expression' in value \
                   and not value.get('sum', False) \
                   and not value.get('count', False)]
+
+        all_values = ['%s%s' % ('-' if value.get('sum') or value.get('count') else '',
+                                value['expression']) \
+                      for value in query['values']]
+
         qs = qs.values(*values)
         p = '%s.values(%s)' % (p, ', '.join(repr(value) for value in values))
 
-        qs = qs.order_by(*values)
+        qs = qs.order_by(*all_values)
         p = '%s.order_by(%s)' % (p, ', '.join(repr(value) for value in values))
 
         sums = dict([(value['expression'], Sum(value['expression'])) \
