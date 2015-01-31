@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-30 21:16+0100\n"
+"PO-Revision-Date: 2015-01-30 21:16+0100\n"
+"Last-Translator: Jef Geskens <jef.geskens@gmail.com>\n"
+"Language-Team: Jef Geskens <jef.geskens@gmail.com>\n"
+"Language: nl_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#: builder.py:15
+msgid "is equal to"
+msgstr "is gelijk aan"
+
+#: builder.py:16
+msgid "contains"
+msgstr "bevat"
+
+#: builder.py:17
+msgid "starts with"
+msgstr "start met"
+
+#: builder.py:18
+msgid "ends with"
+msgstr "eindigt met"
+
+#: builder.py:19
+msgid "in"
+msgstr "in"
+
+#: builder.py:20
+msgid "is empty"
+msgstr "is leeg"
+
+#: builder.py:21
+msgid "is greater than"
+msgstr "is groter dan"
+
+#: builder.py:22
+msgid "is lesser than"
+msgstr "is kleiner dan"
+
+#: builder.py:23
+msgid "is greater than or equals"
+msgstr "is groter of gelijk aan"
+
+#: builder.py:24
+msgid "is lesser than or equals"
+msgstr "is kleiner of gelijk aan"
+
+#: builder.py:25
+msgid "day is equal to"
+msgstr "dag is gelijk aan"
+
+#: builder.py:26
+msgid "month is equal to"
+msgstr "maand is gelijk aan"
+
+#: builder.py:27
+msgid "year is equal to"
+msgstr "jaar is gelijk aan"
+
+#: builder.py:32
+msgid "exclude"
+msgstr "sluit uit"
+
+#: builder.py:33
+msgid "where"
+msgstr "waarvan"
+
+#: builder.py:34
+msgid "equals"
+msgstr "is gelijk aan"
+
+#: builder.py:35
+msgid "Get"
+msgstr "Geef"
+
+#: builder.py:36
+msgid "+ filter"
+msgstr "+ filter"
+
+#: builder.py:37
+msgid "+ exclude"
+msgstr "+ uitsluiting"
+
+#: builder.py:38
+msgid "Run"
+msgstr "Voer uit"
+
+#: builder.py:39
+msgid "column"
+msgstr "kolom"
+
+#: builder.py:40
+msgid "save this query as"
+msgstr "bewaar deze query als"
+
+#: builder.py:41
+msgid "new query"
+msgstr "nieuwe query"
+
+#: builder.py:42
+msgid "Edit"
+msgstr "Wijzigen"
+
+#: builder.py:43
+msgid "Save"
+msgstr "Opslaan"
+
+#: builder.py:44
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: builder.py:45
+msgid "sum"
+msgstr "som"
+
+#: builder.py:46
+msgid "count"
+msgstr "aantal"
+
+#: builder.py:47
+msgid "title"
+msgstr "titel"
+
+#: builder.py:48
+msgid "export to Excel"
+msgstr "exporteren naar Excel"
+
+#: models.py:13
+msgid "name"
+msgstr "naam"
+
+#: models.py:14
+msgid "query"
+msgstr "query"
+
+#: models.py:15
+msgid "creation date"
+msgstr "aanmaakdatum"
+
+#: models.py:16
+msgid "created by"
+msgstr "aangemaakt door"
+
+#: models.py:17
+msgid "last run"
+msgstr "laatst uitgevoerd"
+
+#: models.py:20
+msgid "saved query"
+msgstr "opgeslagen query"
+
+#: models.py:21
+msgid "saved queries"
+msgstr "opgeslagen queries"
+
+#: views.py:54
+#, python-format
+msgid "Successfully saved query \"%s\""
+msgstr "Query \"%s\" succesvol opgeslagen."
+
+#: views.py:65
+#, python-format
+msgid "Successfully deleted query \"%s\""
+msgstr "Query \"%s\" succesvol verwijderd."
+
+#~ msgid "All"
+#~ msgstr "Alles"
+
+#~ msgid "No"
+#~ msgstr "Nee"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "View on site"
+#~ msgstr "Bekijk op website"
+
+#~ msgid "Add another %(verbose_name)s"
+#~ msgstr "Voeg nog een %(verbose_name)s toe"
+
+#~ msgid "Remove"
+#~ msgstr "Verwijder"
+
+#~ msgid " By %(filter_title)s "
+#~ msgstr " Met %(filter_title)s "

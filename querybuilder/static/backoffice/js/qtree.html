@@ -1,0 +1,6 @@
+<ul style="padding-left: 16px;">
+    <li class="list" ng-repeat="item in qTree">
+        <span ng-hide="item.length > 0" ng-bind="item"></span>
+        <div q-tree="item"></div>
+    </li>
+</ul>

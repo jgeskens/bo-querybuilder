@@ -1,0 +1,125 @@
+{% load i18n %}
+<div ng-controller="QueryBuilderController" ng-init="test=[1, 2, 3, 4, 5, [6, 7]]">
+
+    <div q-tree="test" ng-show="false"></div>
+
+    <div class="panel panel-success">
+
+        <div class="panel-heading form-inline">
+            <div class="form-group">
+                <select class="form-control" ng-model="qb.saved_query_id" ng-change="qb.switch_saved_query()"
+                        ng-options="query.id as query.name|capitalize for query in qb.saved_queries">
+                    <option value="" ng-bind="qb.model_info.strings.newQueryText"></option>
+                </select>
+            </div>
+            <div class="checkbox" ng-show="qb.editing">
+                <label ng-bind="qb.model_info.strings.saveQueryAsText"></label>
+            </div>
+            <div class="form-group" ng-show="qb.editing">
+                <input type="text" class="form-control" ng-model="qb.saved_query.name">
+            </div>
+            <div class="form-group" ng-hide="qb.editing">
+                <button class="btn btn-default" ng-click="qb.editing=true"
+                        ng-bind="qb.model_info.strings.editText"></button>
+            </div>
+            <div class="form-group" ng-show="qb.editing">
+                <button class="btn btn-success" ng-click="qb.save_query()"
+                        ng-bind="qb.model_info.strings.saveText"></button>
+            </div>
+            <div class="form-group" ng-show="qb.editing && qb.saved_query_id">
+                <button class="btn btn-danger" ng-click="qb.delete_query()"
+                        ng-bind="qb.model_info.strings.deleteText"></button>
+            </div>
+            <div class="form-group" ng-show="qb.query.model">
+                <button type="submit" class="btn btn-primary form-control" ng-click="qb.run()"
+                        ng-bind="qb.model_info.strings.runText"></button>
+            </div>
+        </div>
+
+        <div class="panel-body form-inline" ng-show="qb.editing">
+            <div class="checkbox">
+                <label ng-bind="qb.model_info.strings.getText"></label>
+            </div>
+            <div class="form-group">
+                <select class="form-control" ng-model="qb.query.model" ng-change="qb.reset_rules()"
+                        ng-options="model_name as model.verbose_name_plural|capitalize for (model_name, model) in qb.model_info.models">
+                </select>
+            </div>
+        </div>
+
+        <div ng-repeat="rule in qb.query.rules" class="panel-body" ng-show="qb.editing">
+            <div qb-rule="rule"
+                 model="qb.query.model"
+                 model-info="qb.model_info"
+                 on-click-remove="qb.query.rules.splice($index, 1)"></div>
+        </div>
+
+        <div ng-repeat="value in qb.query.values" class="panel-body" ng-show="qb.editing">
+            <div qb-value="value"
+                 model-info="qb.model_info"
+                 choices="qb.value_choices"
+                 on-click-remove="qb.query.values.splice($index, 1)"
+                 on-click-insert="qb.query.values.splice($index+1, 0, {})"></div>
+        </div>
+
+        <div class="form-inline panel-footer" ng-show="qb.query.model && qb.editing">
+            <div class="form-group">
+                <button class="btn btn-default form-control" ng-click="qb.new_rule(false)"
+                        ng-bind="qb.model_info.strings.newFilterText"></button>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default form-control" ng-click="qb.new_rule(true)"
+                        ng-bind="qb.model_info.strings.newExcludeText"></button>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default form-control" ng-click="qb.new_value()">
+                    + <span ng-bind="qb.model_info.strings.columnText"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <pre ng-show="qb.result.django && developer" ng-bind="qb.result.django"></pre>
+    <pre ng-show="qb.result.sql && developer" ng-bind="qb.result.sql"></pre>
+
+
+    <div class="panel panel-success" ng-show="qb.result.objects">
+        <div class="panel-heading">
+            <button class="btn btn-success pull-right"
+                    ng-bind="qb.model_info.strings.exportToExcelText"
+                    ng-click="qb.export_to_excel()"></button>
+                <h2>
+                    <span ng-bind="qb.result.count"></span>
+
+                    <span ng-bind="{false: qb.model_info.models[qb.query.model].verbose_name_plural,
+                                    true: qb.model_info.models[qb.query.model].verbose_name
+                                    }[qb.result.count == 1]"></span>
+                </h2>
+
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th ng-repeat="value in qb.query.values" ng-bind="qb.get_header(value)"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="result in qb.result.objects">
+                    <td ng-repeat="value in qb.query.values" ng-bind="result[value.expression]"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div bo-paginator
+             page="qb.query.page"
+             page-count="((qb.result.count - 1) / 20 + 0.5)|number:0"
+             on-change="qb.run()"></div>
+    </div>
+
+
+    <pre ng-bind="qb.query|json" ng-show="false"></pre>
+    <pre ng-bind="qb.result|json" ng-show="false"></pre>
+
+    <pre ng-bind="qb.model_info|json" ng-show="false"></pre>
+    <input type="checkbox" ng-model="developer">
+</div>

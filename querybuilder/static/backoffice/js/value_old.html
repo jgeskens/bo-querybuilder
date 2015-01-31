@@ -1,0 +1,23 @@
+<div class="form-inline">
+    <div class="form-group pull-right">
+        <input type="reset" class="btn btn-default" value="&minus;" ng-click="onClickRemove()">
+    </div>
+    <div class="checkbox">
+        <label ng-bind="model_info.strings.columnText"></label>
+    </div>
+    <div class="form-group">
+        <select class="form-control" ng-model="value.expression"
+                ng-options="choice[0] as choice[1]|capitalize group by choice[2] for choice in choices"
+                ng-change="value.label=((choices|filter:{0:value.expression})[0][1]|capitalize)">
+        </select>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" ng-model="value.sum"> <span ng-bind="model_info.strings.sumText"></span></label>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" ng-model="value.count"> <span ng-bind="model_info.strings.countText"></span></label>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" ng-model="value.label" placeholder="{{ model_info.strings.titleText }}">
+    </div>
+</div>

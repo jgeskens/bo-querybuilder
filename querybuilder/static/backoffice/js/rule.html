@@ -1,0 +1,42 @@
+<div class="form-inline">
+    <ul ng-show="rule.errors">
+        <li class="text-danger" ng-repeat="error in rule.errors" ng-bind="error"></li>
+    </ul>
+    <div class="form-group pull-right">
+        <input type="reset" class="btn btn-default" value="&minus;" ng-click="onClickRemove()">
+    </div>
+    <div class="checkbox" ng-show="rule.exclude">
+        <label ng-bind="model_info.strings.excludeText"></label>
+    </div>
+    <span ng-repeat="lookup in rule.lookups">
+        <div class="checkbox">
+            <label ng-bind="model_info.strings.whereText"></label>
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="select_field{{ $index }}" ng-bind="whereText"></label>
+            <select id="select_field{{ $index }}" class="form-control" ng-model="lookup.field"
+                    ng-change="assign_model_to_lookup($index)"
+                    ng-options="name as field.label|capitalize for (name, field) in get_fields($index)">
+            </select>
+        </div>
+        <div class="checkbox" ng-show="get_choices($index)">
+            <label ng-bind="model_info.strings.equalsText"></label>
+        </div>
+        <div class="form-group" ng-class="{'has-error': rule.errors.length > 0}">
+            <select class="form-control" ng-model="lookup.value" ng-show="get_choices($index)"
+                    ng-options="choice[0] as choice[1] for choice in get_choices($index)">
+            </select>
+        </div>
+        <div class="form-group" ng-hide="!lookup.field || lookup.model || get_choices($index)">
+            <label class="sr-only" for="equality_field{{ $index }}"></label>
+            <select id="equality_field{{ $index }}" class="form-control" ng-model="lookup.equality"
+                    ng-options="choice[0] as choice[1] for choice in model_info.equalities">
+            </select>
+        </div>
+        <div class="form-group"
+             ng-hide="(lookup.equality == '__isnull' || !lookup.field || lookup.model || get_choices($index))"
+             ng-class="{'has-error': rule.errors}">
+            <input class="form-control" type="text" ng-model="lookup.value">
+        </div>
+    </span>
+</div>
