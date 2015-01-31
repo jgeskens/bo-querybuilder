@@ -1,14 +1,16 @@
 from __future__ import unicode_literals
+import importlib
+import inspect
 import json
+from django.conf import settings
 from django.contrib import messages
+from django.db.models.base import ModelBase
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 from django.utils.timezone import now
 from django.utils.translation import ugettext
 from advanced_reports.backoffice.base import BackOfficeView
-from aquadminapp.models import Person, WorkingYear, PostalCode, Brevet, BrevetType, Organisation
-from aquafinance.models import Transaction, Category, Account, Rubric
 
 from .models import SavedQuery
 from .builder import QueryBuilder
@@ -18,8 +20,23 @@ class QueryBuilderView(BackOfficeView):
     template = 'backoffice/views/querybuilder.html'
 
     def __init__(self):
-        self.qb = QueryBuilder(models=(Person, WorkingYear, PostalCode, Brevet, BrevetType, Organisation, Transaction,
-                                       Category, Account, Rubric))
+        qb_models = self.get_models_from_settings()
+        self.qb = QueryBuilder(models=qb_models)
+
+    def get_models_from_settings(self):
+        model_paths = getattr(settings, 'QUERYBUILDER_MODELS', [])
+        qb_models = []
+        for model_path in model_paths:
+            module_path, model_name = model_path.rsplit('.', 1)
+            module = importlib.import_module(module_path)
+            if model_name == '*':
+                model_classes = inspect.getmembers(module, lambda c: type(c) == ModelBase)
+                for model_tuple in model_classes:
+                    qb_models.append(getattr(module, model_tuple[0]))
+            else:
+                model = getattr(module, model_name)
+                qb_models.append(model)
+        return qb_models
 
     def get_models(self, request):
         return self.qb.get_models()

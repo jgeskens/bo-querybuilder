@@ -58,7 +58,9 @@ class QueryBuilder(object):
         return {
             'verbose_name': opts.verbose_name,
             'verbose_name_plural': opts.verbose_name_plural,
-            'fields': OrderedDict((field, self.get_field_meta(model, field)) for field in opts.get_all_field_names()),
+            'fields': OrderedDict((field, self.get_field_meta(model, field)) \
+                                  for field in opts.get_all_field_names() \
+                                  if not field.endswith('_id')),
             'name': '%s.%s' % (opts.app_label, opts.model_name)
         }
 
