@@ -5,7 +5,7 @@ import querybuilder
 setup(
     name="bo-querybuilder",
     version=querybuilder.__version__,
-    url='https://github.com/vikingco/django-advanced-reports',
+    url='https://github.com/jgeskens/bo-querybuilder',
     license='MIT',
     description="QueryBuilder Backoffice View for Django Advanced Reports",
     long_description=open('README.md', 'r').read(),
