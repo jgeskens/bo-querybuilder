@@ -113,15 +113,19 @@
         };
 
         qb.saved_query = {};
-        qb.save_query = function(cb){
-            var params = {name: qb.saved_query.name || 'untitled', query: qb.query, id: qb.saved_query.id || null};
+        qb.save_query = function(save_as_copy, callback){
+            var params = {
+                name: qb.saved_query.name || 'untitled',
+                query: qb.query,
+                id: (save_as_copy ? null : qb.saved_query.id || null)
+            };
             $scope.view.call('save_query', params).then(function(result){
                 qb.saved_query = result;
                 qb.saved_query_id = result.id;
                 qb.fetch_saved_queries();
                 qb.editing = false;
-                if (cb){
-                    cb(result);
+                if (callback){
+                    callback();
                 }
             });
         };
@@ -174,7 +178,7 @@
         };
 
         qb.export_to_excel = function(){
-            qb.save_query(function(){
+            qb.save_query(false, function(){
                 window.location.href = $scope.view.action_link('export_to_excel', {id: qb.saved_query.id});
             });
         };

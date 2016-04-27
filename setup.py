@@ -27,4 +27,8 @@ setup(
         'Environment :: Web Environment',
         'Framework :: Django',
     ],
+    install_requires=[
+        'xlsxwriter',
+        'django-advanced-reports'
+    ]
 )

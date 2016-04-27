@@ -23,8 +23,12 @@
                         ng-bind="qb.model_info.strings.editText"></button>
             </div>
             <div class="form-group" ng-show="qb.editing">
-                <button class="btn btn-success" ng-click="qb.save_query()"
+                <button class="btn btn-success" ng-click="qb.save_query(false)"
                         ng-bind="qb.model_info.strings.saveText"></button>
+            </div>
+            <div class="form-group" ng-show="qb.editing && qb.saved_query_id">
+                <button class="btn btn-success" ng-click="qb.save_query(true)"
+                        ng-bind="qb.model_info.strings.saveAsCopyText"></button>
             </div>
             <div class="form-group" ng-show="qb.editing && qb.saved_query_id">
                 <button class="btn btn-danger" ng-click="qb.delete_query()"

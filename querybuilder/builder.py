@@ -6,8 +6,8 @@ from django.core.exceptions import ValidationError
 from django.db.models.aggregates import Sum, Count
 from django.db.models.fields import Field, PositiveIntegerField
 from django.db.models.fields.related import ForeignKey
-from django.db.models.loading import get_model
 from django.utils.translation import ugettext_lazy
+from django.apps import apps
 import six
 
 
@@ -42,6 +42,7 @@ STRINGS = {
     'editText': ugettext_lazy('Edit'),
     'saveText': ugettext_lazy('Save'),
     'deleteText': ugettext_lazy('Delete'),
+    'saveAsCopyText': ugettext_lazy('Save as copy'),
     'sumText': ugettext_lazy('sum'),
     'countText': ugettext_lazy('count'),
     'titleText': ugettext_lazy('title'),
@@ -111,7 +112,7 @@ class QueryBuilder(object):
     def text_to_value(self, text, query, lookups):
         model_key = lookups[-2]['model'] if len(lookups) > 1 else query['model']
         app_label, model_name = model_key.split('.')
-        model = get_model(app_label, model_name)
+        model = apps.get_model(app_label, model_name)
         lookup = lookups[-1]
 
         if lookup['equality'] == '__isnull':
@@ -133,7 +134,7 @@ class QueryBuilder(object):
 
     def run(self, query, stream=False):
         app_label, model_name = query['model'].split('.')
-        model = get_model(app_label, model_name)
+        model = apps.get_model(app_label, model_name)
         qs = model.objects.all()
         p = '%s.objects' % model.__name__
         has_errors = False
