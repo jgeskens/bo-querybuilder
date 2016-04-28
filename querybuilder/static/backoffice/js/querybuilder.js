@@ -108,6 +108,7 @@
                 if (query_result.has_errors){
                     qb.query.rules = query_result.query.rules;
                 }
+                qb.query.page = 1;
                 qb.result = query_result;
             });
         };
