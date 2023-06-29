@@ -3,22 +3,22 @@ import json
 from django.contrib.auth.models import User
 
 from django.db import models
-from django.utils.six import python_2_unicode_compatible, text_type
+from six import python_2_unicode_compatible, text_type
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 
 @python_2_unicode_compatible
 class SavedQuery(models.Model):
-    name = models.CharField(max_length=255, verbose_name=ugettext_lazy('name'))
-    query = models.TextField(verbose_name=ugettext_lazy('query'))
-    created = models.DateTimeField(default=now, verbose_name=ugettext_lazy('creation date'))
-    created_by = models.ForeignKey(User, verbose_name=ugettext_lazy('created by'))
-    last_run = models.DateTimeField(blank=True, null=True, verbose_name=ugettext_lazy('last run'))
+    name = models.CharField(max_length=255, verbose_name=gettext_lazy('name'))
+    query = models.TextField(verbose_name=gettext_lazy('query'))
+    created = models.DateTimeField(default=now, verbose_name=gettext_lazy('creation date'))
+    created_by = models.ForeignKey(User, verbose_name=gettext_lazy('created by'), on_delete=models.CASCADE)
+    last_run = models.DateTimeField(blank=True, null=True, verbose_name=gettext_lazy('last run'))
 
     class Meta:
-        verbose_name = ugettext_lazy('saved query')
-        verbose_name_plural = ugettext_lazy('saved queries')
+        verbose_name = gettext_lazy('saved query')
+        verbose_name_plural = gettext_lazy('saved queries')
 
     def __str__(self):
         return self.name

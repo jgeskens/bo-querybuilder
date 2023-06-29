@@ -9,7 +9,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 from django.utils.timezone import now
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 from advanced_reports.backoffice.base import BackOfficeView
 
 from .models import SavedQuery

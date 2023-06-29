@@ -6,47 +6,47 @@ from django.core.exceptions import ValidationError
 from django.db.models.aggregates import Sum, Count
 from django.db.models.fields import Field, PositiveIntegerField
 from django.db.models.fields.related import ForeignKey
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from django.apps import apps
 import six
 
 
 EQUALITIES = (
-    ('', ugettext_lazy('is equal to')),
-    ('__icontains', ugettext_lazy('contains')),
-    ('__istartswith', ugettext_lazy('starts with')),
-    ('__iendswith', ugettext_lazy('ends with')),
-    ('__in', ugettext_lazy('in')),
-    ('__isnull', ugettext_lazy('is empty')),
-    ('__gt', ugettext_lazy('is greater than')),
-    ('__lt', ugettext_lazy('is lesser than')),
-    ('__gte', ugettext_lazy('is greater than or equals')),
-    ('__lte', ugettext_lazy('is lesser than or equals')),
-    ('__day', ugettext_lazy('day is equal to')),
-    ('__month', ugettext_lazy('month is equal to')),
-    ('__year', ugettext_lazy('year is equal to')),
+    ('', gettext_lazy('is equal to')),
+    ('__icontains', gettext_lazy('contains')),
+    ('__istartswith', gettext_lazy('starts with')),
+    ('__iendswith', gettext_lazy('ends with')),
+    ('__in', gettext_lazy('in')),
+    ('__isnull', gettext_lazy('is empty')),
+    ('__gt', gettext_lazy('is greater than')),
+    ('__lt', gettext_lazy('is lesser than')),
+    ('__gte', gettext_lazy('is greater than or equals')),
+    ('__lte', gettext_lazy('is lesser than or equals')),
+    ('__day', gettext_lazy('day is equal to')),
+    ('__month', gettext_lazy('month is equal to')),
+    ('__year', gettext_lazy('year is equal to')),
 )
 
 
 STRINGS = {
-    'excludeText': ugettext_lazy('exclude'),
-    'whereText': ugettext_lazy('where'),
-    'equalsText': ugettext_lazy('equals'),
-    'getText': ugettext_lazy('Get'),
-    'newFilterText': ugettext_lazy('+ filter'),
-    'newExcludeText': ugettext_lazy('+ exclude'),
-    'runText': ugettext_lazy('Run'),
-    'columnText': ugettext_lazy('column'),
-    'saveQueryAsText': ugettext_lazy('save this query as'),
-    'newQueryText': ugettext_lazy('new query'),
-    'editText': ugettext_lazy('Edit'),
-    'saveText': ugettext_lazy('Save'),
-    'deleteText': ugettext_lazy('Delete'),
-    'saveAsCopyText': ugettext_lazy('Save as copy'),
-    'sumText': ugettext_lazy('sum'),
-    'countText': ugettext_lazy('count'),
-    'titleText': ugettext_lazy('title'),
-    'exportToExcelText': ugettext_lazy('export to Excel'),
+    'excludeText': gettext_lazy('exclude'),
+    'whereText': gettext_lazy('where'),
+    'equalsText': gettext_lazy('equals'),
+    'getText': gettext_lazy('Get'),
+    'newFilterText': gettext_lazy('+ filter'),
+    'newExcludeText': gettext_lazy('+ exclude'),
+    'runText': gettext_lazy('Run'),
+    'columnText': gettext_lazy('column'),
+    'saveQueryAsText': gettext_lazy('save this query as'),
+    'newQueryText': gettext_lazy('new query'),
+    'editText': gettext_lazy('Edit'),
+    'saveText': gettext_lazy('Save'),
+    'deleteText': gettext_lazy('Delete'),
+    'saveAsCopyText': gettext_lazy('Save as copy'),
+    'sumText': gettext_lazy('sum'),
+    'countText': gettext_lazy('count'),
+    'titleText': gettext_lazy('title'),
+    'exportToExcelText': gettext_lazy('export to Excel'),
 }
 
 
@@ -147,7 +147,7 @@ class QueryBuilder(object):
             filter_value = rule['lookups'][-1].get('value')
             try:
                 filter_value = self.text_to_value(filter_value, query, rule['lookups'])
-            except ValidationError, e:
+            except ValidationError as e:
                 rule['errors'] = e.messages
                 has_errors = True
                 filter_value = None
