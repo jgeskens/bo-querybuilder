@@ -126,7 +126,7 @@ class QueryBuilder(object):
         if not 'field' in lookup:
             return None
 
-        field = model._meta.get_field_by_name(lookup['field'])[0]
+        field = model._meta.get_field(lookup['field'])
         if lookup['equality'] == '__in':
             items = text.split(',')
             return [self.text_to_value_based_on_field(item, field) for item in items]
@@ -198,8 +198,8 @@ class QueryBuilder(object):
         annotates.update(sums)
         annotates.update(counts)
 
-        psums = ('%s=Sum(%r)' % (sum, sum) for sum, _ in sums.iteritems())
-        pcounts = ('%s=Count(%r)' % (cnt, cnt) for cnt, _ in counts.iteritems())
+        psums = ('%s=Sum(%r)' % (sum, sum) for sum, _ in sums.items())
+        pcounts = ('%s=Count(%r)' % (cnt, cnt) for cnt, _ in counts.items())
 
         if sums or counts:
             qs = qs.annotate(**annotates)

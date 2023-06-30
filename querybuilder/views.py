@@ -68,7 +68,7 @@ class QueryBuilderView(BackOfficeView):
                 query=json.dumps(query, indent=2),
                 created_by=request.user
             )
-        messages.success(request, ugettext('Successfully saved query "%s"') % name)
+        messages.success(request, gettext('Successfully saved query "%s"') % name)
         return sq.serialize()
 
     def get_saved_queries(self, request):
@@ -79,7 +79,7 @@ class QueryBuilderView(BackOfficeView):
         id = request.action_params.get('id')
         sq = SavedQuery.objects.get(pk=int(id))
         sq.delete()
-        messages.success(request, ugettext('Successfully deleted query "%s"') % sq.name)
+        messages.success(request, gettext('Successfully deleted query "%s"') % sq.name)
 
     def export_to_excel(self, request):
         id = int(request.GET.get('id'))
@@ -88,8 +88,8 @@ class QueryBuilderView(BackOfficeView):
         result = self.qb.run(query, stream=True)
 
         import xlsxwriter
-        import StringIO
-        output = StringIO.StringIO()
+        import io
+        output = io.BytesIO()
         wb = xlsxwriter.Workbook(filename=output, options=dict(in_memory=True))
         ws = wb.add_worksheet()
         for c, value in enumerate(query['values']):
